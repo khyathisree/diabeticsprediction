@@ -23,7 +23,7 @@ def predict():
         age = int(request.form['age'])
         data=[pregnancies,glucose,blood_pressure,skin_thickness,insulin,bmi,diabetes_pedigree,age]
         print(data)
-        with open('model.pickle','rb') as file:
+        with open('model2.pickle','rb') as file:
             model=pickle.load(file)
         result=model.predict([data])
         print(result)
@@ -36,6 +36,24 @@ def predict():
     else:
         return render_template('predict.html')
         
+
+@app.route('/patient', methods=['POST','GET'])
+def showpatient():
+    conn=sqlite3.connect('patient.db')
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM PATIENTINFO")
+    data=[]
+    for i in cur.fetchall():
+        patient={}
+        patient['name']=i[0]
+        patient['result']=i[1]
+        data.append(patient)
+    return render_template('showpatient.html',data=data)
+
+
+
+
+
 
 
 
