@@ -3,7 +3,3 @@ flask
 scikit-Learn
 
 
-pandas
-numpy
-seaborn
-matplotlib
